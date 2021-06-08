@@ -1,7 +1,7 @@
-import { Table, Tag, Space, Card } from 'antd';
+import { Table, Card } from 'antd';
 import React, { ReactElement } from 'react';
 
-const TableCargos = (): ReactElement => {
+const TableCargos = ({ style = {} }): ReactElement => {
   const data = [
     {
       id: '1',
@@ -67,7 +67,7 @@ const TableCargos = (): ReactElement => {
   ];
   return (
     <Card title="Cargos">
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} style={style} />
     </Card>
   );
 };

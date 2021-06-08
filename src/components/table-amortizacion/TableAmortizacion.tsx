@@ -1,7 +1,7 @@
-import { Table, Tag, Space, Card } from 'antd';
+import { Table, Card } from 'antd';
 import React, { ReactElement } from 'react';
 
-const TableAmortizacion = (): ReactElement => {
+const TableAmortizacion = ({ style = {} }): ReactElement => {
   const data = [
     {
       cuota: '1',
@@ -48,7 +48,7 @@ const TableAmortizacion = (): ReactElement => {
   ];
   return (
     <Card title="Amortización">
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} style={style} />
     </Card>
   );
 };
