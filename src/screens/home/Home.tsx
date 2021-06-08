@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchList } from '@redux/actions';
 import { GITHUB_LINK } from '@constants/general';
 import LogoIcon from '@icons/LogoIcon';
 
@@ -21,26 +19,9 @@ type Props = {};
 
 const Home: React.FC<Props> = () => {
   const { t } = useTranslation('homeScreen');
-  const [fetching, setFetching] = useState(true);
-  const list = useSelector((state: IReducerStates) => state.list);
-  const dispatch = useDispatch();
   const { Step } = Steps;
   const style = { padding: '4px', margin: '4px' };
   const { Option } = Select;
-
-  useEffect(() => {
-    (async () => {
-      await setFetching(true);
-
-      try {
-        await dispatch(fetchList());
-      } catch (error) {
-        // console.log(error)
-      }
-
-      setFetching(false);
-    })();
-  }, [dispatch]);
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
