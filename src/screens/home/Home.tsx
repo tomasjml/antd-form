@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Steps } from 'antd';
 import { fetchList } from '@redux/actions';
 import { GITHUB_LINK } from '@constants/general';
 import LogoIcon from '@icons/LogoIcon';
+
+// Components
 import ListItem from '@components/data_entry/ListItem';
 import Header from '@layout/header';
+import { Card, DatePicker, Steps } from 'antd';
 import { Row, Col, Divider } from 'antd';
-import { Form, Input, Select, Tooltip, Button, Space, Typography, InputNumber } from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
+import { Form, Input, Select, Tooltip, Button, Space, Typography, InputNumber, Table } from 'antd';
+import { EyeOutlined, CalculatorOutlined } from '@ant-design/icons';
+import TableCargos from '../../components/table-cargos/TableCargos';
+import TableAmortizacion from '../../components/table-amortizacion/TableAmortizacion';
 
 import './Home.less';
 
@@ -44,11 +48,10 @@ const Home: React.FC<Props> = () => {
 
   return (
     <>
-      <Header />
       <div className="home">
         <Card
           className="home__card"
-          title={t('title')}
+          title={<Header />}
           extra={
             <a className="home__link" href={GITHUB_LINK} target="_blank" rel="noopener noreferrer">
               <LogoIcon fill="#3f51b5" /> {t('githubLink')}
@@ -123,13 +126,118 @@ const Home: React.FC<Props> = () => {
                   </Select>
                 </Form.Item>
               </Col>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
               <Col>
-                <Form.Item name="price" label="Price">
-                  <InputNumber />
+                <Form.Item name="fecha" label="Fecha">
+                  <DatePicker placeholder="Fecha de Solicitud" style={{ width: 240 }} />
+                </Form.Item>
+              </Col>
+              <Col>
+                <Form.Item name="monto" label="Monto">
+                  <InputNumber placeholder="$0.00" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Col>
+                <Form.Item name="taza" label="Taza">
+                  <InputNumber placeholder="00%" />
+                </Form.Item>
+              </Col>
+              <Col>
+                <Form.Item label="Plazo">
+                  <Input.Group compact>
+                    <Form.Item
+                      name={['plazo', 'Seleccione']}
+                      noStyle
+                      rules={[{ required: true, message: 'Province is required' }]}
+                    >
+                      <Select placeholder="Seleccione" style={{ width: 180 }}>
+                        <Option value="Zhejiang">1 año</Option>
+                        <Option value="Jiangsu">2 años</Option>
+                        <Option value="Jiangsu">4 años</Option>
+                      </Select>
+                    </Form.Item>
+                    <Form.Item
+                      name={['address', 'street']}
+                      noStyle
+                      rules={[{ required: true, message: 'Street is required' }]}
+                    >
+                      <Input style={{ width: '35%' }} />
+                    </Form.Item>
+                  </Input.Group>
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Col>
+                <Form.Item label="F. Pago">
+                  <Select placeholder="Seleccione una Frecuencia" style={{ width: 320 }}>
+                    <Select.Option value="1">Quincenal</Select.Option>
+                    <Select.Option value="2">Mensual</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col>
+                <Button type="primary" shape="round" icon={<CalculatorOutlined />}>
+                  Calcular Cuota
+                </Button>
+              </Col>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Col>
+                <Form.Item name="tipo-cuenta" label="Tipo de Cuenta" rules={[{ required: true }]}>
+                  <Select
+                    placeholder="Seleccione el Tipo de cuenta"
+                    style={{ width: 320 }}
+                    // onChange={onGenderChange}
+                    allowClear
+                  >
+                    <Option value="male">Ahorro</Option>
+                    <Option value="female">Crédito</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Col>
+                <Form.Item name="primer-pago" label="Primer Pago">
+                  <DatePicker placeholder="Seleccione la Fecha" style={{ width: 320 }} />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Col>
+                <Form.Item name="cuota" label="Cuota">
+                  <InputNumber placeholder="$0.00" />
+                </Form.Item>
+              </Col>
+              <Col>
+                <Form.Item label="Proveedor">
+                  <Select placeholder="Seleccione un Proveedor" style={{ width: 320 }}>
+                    <Select.Option value="1">Artist Supply. Inc</Select.Option>
+                    <Select.Option value="2">HP.COM</Select.Option>
+                  </Select>
                 </Form.Item>
               </Col>
             </Row>
           </Form>
+          <Row justify="space-around" gutter={24} style={style}>
+            <Col>
+              <Divider>Tablas</Divider>
+            </Col>
+          </Row>
+          <Row justify="space-around" gutter={24} style={style}>
+            <Col>
+              <TableCargos />
+            </Col>
+          </Row>
+          <Row justify="space-around" gutter={24} style={style}>
+            <Col>
+              <TableAmortizacion />
+            </Col>
+          </Row>
         </Card>
       </div>
     </>
