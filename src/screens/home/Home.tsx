@@ -119,6 +119,7 @@ const Home: React.FC<Props> = () => {
                   <InputNumber
                     placeholder="$0.00"
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    min={0}
                   />
                 </Form.Item>
               </Col>
@@ -129,6 +130,8 @@ const Home: React.FC<Props> = () => {
                   <InputNumber
                     placeholder="00%"
                     formatter={value => `% ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    min={0}
+                    max={100}
                   />
                 </Form.Item>
               </Col>
@@ -200,6 +203,7 @@ const Home: React.FC<Props> = () => {
                   <InputNumber
                     placeholder="$0.00"
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    min={0}
                   />
                 </Form.Item>
               </Col>
