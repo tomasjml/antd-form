@@ -6,11 +6,11 @@ import { GITHUB_LINK } from '@constants/general';
 import LogoIcon from '@icons/LogoIcon';
 
 // Components
-import ListItem from '@components/data_entry/ListItem';
+// import ListItem from '@components/data_entry/ListItem';
 import Header from '@layout/header';
 import { Card, DatePicker, Steps } from 'antd';
 import { Row, Col, Divider } from 'antd';
-import { Form, Input, Select, Tooltip, Button, Space, Typography, InputNumber, Table } from 'antd';
+import { Form, Input, Select, Button, Space, InputNumber } from 'antd';
 import { EyeOutlined, CalculatorOutlined } from '@ant-design/icons';
 import TableCargos from '../../components/table-cargos/TableCargos';
 import TableAmortizacion from '../../components/table-amortizacion/TableAmortizacion';
@@ -230,12 +230,12 @@ const Home: React.FC<Props> = () => {
           </Row>
           <Row justify="space-around" gutter={24} style={style}>
             <Col>
-              <TableCargos />
+              <TableCargos style={{ width: 1024 }} />
             </Col>
           </Row>
           <Row justify="space-around" gutter={24} style={style}>
             <Col>
-              <TableAmortizacion />
+              <TableAmortizacion style={{ width: 1024 }} />
             </Col>
           </Row>
         </Card>
