@@ -116,14 +116,20 @@ const Home: React.FC<Props> = () => {
               </Col>
               <Col>
                 <Form.Item name="monto" label="Monto">
-                  <InputNumber placeholder="$0.00" />
+                  <InputNumber
+                    placeholder="$0.00"
+                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  />
                 </Form.Item>
               </Col>
             </Row>
             <Row justify="space-around" gutter={24} style={style}>
               <Col>
                 <Form.Item name="taza" label="Taza">
-                  <InputNumber placeholder="00%" />
+                  <InputNumber
+                    placeholder="00%"
+                    formatter={value => `% ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  />
                 </Form.Item>
               </Col>
               <Col>
@@ -191,7 +197,10 @@ const Home: React.FC<Props> = () => {
             <Row justify="space-around" gutter={24} style={style}>
               <Col>
                 <Form.Item name="cuota" label="Cuota">
-                  <InputNumber placeholder="$0.00" />
+                  <InputNumber
+                    placeholder="$0.00"
+                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  />
                 </Form.Item>
               </Col>
               <Col>
