@@ -116,9 +116,10 @@ const Home: React.FC<Props> = () => {
                     // onChange={onGenderChange}
                     allowClear
                   >
-                    <Option value="male">male</Option>
-                    <Option value="female">female</Option>
-                    <Option value="other">other</Option>
+                    <Option value="male">Préstamo</Option>
+                    <Option value="female">Póliza de Crédito</Option>
+                    <Option value="other">Microcrédito</Option>
+                    <Option value="other">Crédito Comercial</Option>
                   </Select>
                 </Form.Item>
               </Col>
