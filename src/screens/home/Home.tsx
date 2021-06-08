@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card } from 'antd';
+import { Card, Steps } from 'antd';
 import { fetchList } from '@redux/actions';
 import { GITHUB_LINK } from '@constants/general';
 import LogoIcon from '@icons/LogoIcon';
 import ListItem from '@components/data_entry/ListItem';
 import Header from '@layout/header';
+import { Row, Col, Divider } from 'antd';
+import { Form, Input, Select, Tooltip, Button, Space, Typography, InputNumber } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
 
 import './Home.less';
 
@@ -17,6 +20,9 @@ const Home: React.FC<Props> = () => {
   const [fetching, setFetching] = useState(true);
   const list = useSelector((state: IReducerStates) => state.list);
   const dispatch = useDispatch();
+  const { Step } = Steps;
+  const style = { padding: '4px', margin: '4px' };
+  const { Option } = Select;
 
   useEffect(() => {
     (async () => {
@@ -32,6 +38,10 @@ const Home: React.FC<Props> = () => {
     })();
   }, [dispatch]);
 
+  const onFinish = (values: any) => {
+    console.log('Received values of form: ', values);
+  };
+
   return (
     <>
       <Header />
@@ -45,11 +55,80 @@ const Home: React.FC<Props> = () => {
             </a>
           }
         >
-          {fetching ? (
-            <p>{t('loading')}</p>
-          ) : (
-            list.map((item: IItem) => <ListItem key={item.id} item={item.name} />)
-          )}
+          <Row justify="space-around" style={style}>
+            <Col flex="auto">
+              <Steps size="default" current={0}>
+                <Step title="Datos Solicitante" />
+                <Step title="Representante Legales" />
+                <Step title="Datos Prestámos" />
+                <Step title="Codeudores y Garantías" />
+                <Step title="Documentos" />
+              </Steps>
+            </Col>
+          </Row>
+          <br />
+          <Form
+            name="complex-form"
+            onFinish={onFinish}
+            labelCol={{ span: 32 }}
+            // wrapperCol={{ span: 16 }}
+          >
+            <Row justify="space-around" gutter={24} style={style}>
+              <Space align="center">
+                <Col>
+                  <Form.Item label="ID Solicitud">
+                    <Form.Item
+                      name="solicitud-id"
+                      noStyle
+                      rules={[{ required: true, message: 'ID es requerido' }]}
+                    >
+                      <Input style={{ width: 320 }} placeholder="ID de la Solicitud" />
+                    </Form.Item>
+                  </Form.Item>
+                </Col>
+                <Col>
+                  <Form.Item label="Estado Solicitud">
+                    <Form.Item
+                      name="solicitud-estado"
+                      noStyle
+                      rules={[{ required: true, message: 'ID es requerido' }]}
+                    >
+                      <Input style={{ width: 320 }} placeholder="ID de la Solicitud" />
+                    </Form.Item>
+                  </Form.Item>
+                </Col>
+                <Col>
+                  <Button type="primary" shape="round" icon={<EyeOutlined />}>
+                    Observaciones
+                  </Button>
+                </Col>
+              </Space>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Divider>Generales de Crédito</Divider>
+            </Row>
+            <Row justify="space-around" gutter={24} style={style}>
+              <Col>
+                <Form.Item name="oferta" label="Oferta" rules={[{ required: true }]}>
+                  <Select
+                    placeholder="Oferta de Financiamiento"
+                    style={{ width: 480 }}
+                    // onChange={onGenderChange}
+                    allowClear
+                  >
+                    <Option value="male">male</Option>
+                    <Option value="female">female</Option>
+                    <Option value="other">other</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col>
+                <Form.Item name="price" label="Price">
+                  <InputNumber />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Form>
         </Card>
       </div>
     </>
